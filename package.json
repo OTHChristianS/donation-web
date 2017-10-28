@@ -11,8 +11,10 @@
     "author": "Christian Schütze",
     "contributors": [],
     "dependencies": {
-        "hapi": "^16.6.2"
-    }, "scripts":{
-"start":"node index.js"}
-
+        "hapi": "^16.6.2",
+        "inert": "^4.2.1"
+    },
+    "scripts": {
+        "start": "node index.js"
+    }
 }
