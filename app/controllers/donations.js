@@ -2,24 +2,29 @@
 
 exports.home = {
 
-    handler: (request, reply) => {
-        reply.view('main', {title: 'Welcome to Donations'});
+    handler: function (request, reply) {
+        reply.view('home', {title: 'Make a Donation'});
     },
 
 };
 
-exports.signup = {
+exports.report = {
 
-    handler: (request, reply) => {
-        reply.view('signup', {title: 'Sign up for Donations'});
+    handler: function (request, reply) {
+        reply.view('report', {
+            title: 'Donations to Date',
+            donations: this.donations,
+        });
     },
 
 };
 
-exports.login = {
+exports.donate = {
 
-    handler: (request, reply) => {
-        reply.view('login', {title: 'Login to Donations'});
+    handler: function (request, reply) {
+        const data = request.payload;
+        this.donations.push(data);
+        reply.redirect('/report');
     },
 
 };

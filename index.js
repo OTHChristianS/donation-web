@@ -34,3 +34,7 @@ server.register([require('inert'), require('vision')], err => {
     });
 
 });
+
+server.bind({
+    donations: [],
+});
