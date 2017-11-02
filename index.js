@@ -27,7 +27,8 @@ server.register([require('inert'), require('vision'), require('hapi-auth-cookie'
         password: 'secretpasswordnotrevealedtoanyone',
         cookie: 'donation-cookie',
         isSecure: false,
-        ttl: 24 * 60 * 60 * 1000
+        ttl: 24 * 60 * 60 * 1000,
+        redirectTo: '/login'
     });
 
     server.auth.default({
