@@ -27,26 +27,34 @@ exports.login = {
 exports.authenticate = {
     auth: false,
     handler: function (request, reply) {
-        reply.redirect('/home');
+        const user = request.payload;
+        if ((user.email in this.users) && (user.password === this.users[user.email].password)) {
+            request.cookieAuth.set({
+                loggedIn: true,
+                loggedInUser: user.email,
+            });
+            reply.redirect('/home');
+        } else {
+            reply.redirect('/signup');
+        }
     }
 
 };
 
 exports.logout = {
-
+    auth: false,
     handler: function (request, reply) {
+        request.cookieAuth.clear();
         reply.redirect('/');
     }
-
 };
 
 exports.register = {
     auth: false,
     handler: function (request, reply) {
         const user = request.payload;
-        this.currentUser = user;
-        this.users.push(user);
-        reply.redirect('/home');
+        this.users[user.email] = user;
+        reply.redirect('/login');
     }
 
 };

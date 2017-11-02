@@ -20,14 +20,14 @@ server.register([require('inert'), require('vision'), require('hapi-auth-cookie'
         layoutPath: './app/views/layout',
         partialsPath: './app/views/partials',
         layout: true,
-        isCached: false,
+        isCached: false
     });
 
     server.auth.strategy('standard', 'cookie', {
         password: 'secretpasswordnotrevealedtoanyone',
         cookie: 'donation-cookie',
         isSecure: false,
-        ttl: 24 * 60 * 60 * 1000,
+        ttl: 24 * 60 * 60 * 1000
     });
 
     server.auth.default({
@@ -47,7 +47,6 @@ server.register([require('inert'), require('vision'), require('hapi-auth-cookie'
 });
 
 server.bind({
-    currentUser: {},
     donations: [],
     users: []
 });
