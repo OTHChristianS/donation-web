@@ -1,22 +1,7 @@
 {
-    "name": "lab5",
-    "version": "1.0.0",
-    "keywords": [
-        "util",
-        "functional",
-        "server",
-        "client",
-        "browser"
-    ],
-    "author": "Christian Schütze",
-    "contributors": [],
-    "dependencies": {
-        "handlebars": "^4.0.11",
-        "hapi": "^16.6.2",
-        "inert": "^4.2.1",
-        "vision": "^4.1.1"
-    },
-    "scripts": {
-        "start": "node index.js"
-    }
+  "name": "donation-web", "version": "1.0.0", "description": "an application to host donations for candidates", "main": "index.js", "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }, "author": "", "license": "ISC", "dependencies": {
+    "handlebars": "^4.0.5", "hapi": "^14.1.0", "hapi-auth-cookie": "^6.1.1", "inert": "^4.0.1", "vision": "^4.1.0"
+  }
 }
