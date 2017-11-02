@@ -58,3 +58,30 @@ exports.register = {
     }
 
 };
+
+exports.viewSettings = {
+    handler: function (request, reply) {
+        const userEmail = request.auth.credentials.loggedInUser;
+        const currentUser = this.users[userEmail];
+        reply.view('settings', {
+            title: 'Edit Account Settings',
+            user: currentUser
+        });
+    }
+};
+
+exports.updateSettings = {
+    handler: function (request, reply) {
+        const modifiedUser = request.payload;
+        const userEmail = request.auth.credentials.loggedInUser;
+        delete this.users[userEmail];
+        this.users[modifiedUser.email] = modifiedUser;
+        console.log(this.users);
+        request.cookieAuth.clear();
+        request.cookieAuth.set({
+            loggedIn: true,
+            loggedInUser: modifiedUser.email,
+        });
+        reply.redirect('/settings');
+    }
+};
