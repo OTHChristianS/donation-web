@@ -1,8 +1,9 @@
 'use strict';
 
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-let dbURI = 'mongodb://192.168.56.101/donation';
+let dbURI = 'mongodb://node:nodeJS@192.168.56.101:27017/donation?authSource=admin';
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
