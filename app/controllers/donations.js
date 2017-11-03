@@ -14,15 +14,16 @@ exports.home = {
 exports.report = {
 
     handler: function (request, reply) {
-        Donation.find({}).exec().then(allDonations => {
+        Donation.find({}).populate('donor').then(allDonations => {
             reply.view('report', {
                 title: 'Donations to Date',
-                donations: allDonations
+                donations: allDonations,
             });
         }).catch(err => {
+            console.log(err);
             reply.redirect('/');
         });
-    }
+    },
 
 };
 
