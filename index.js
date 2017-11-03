@@ -1,5 +1,6 @@
 'use strict';
 
+require('./app/models/db');
 const Hapi = require('hapi');
 
 var server = new Hapi.Server();
@@ -47,7 +48,3 @@ server.register([require('inert'), require('vision'), require('hapi-auth-cookie'
 
 });
 
-server.bind({
-    donations: [],
-    users: []
-});
