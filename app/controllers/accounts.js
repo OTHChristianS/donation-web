@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models/user');
+const Joi = require('joi');
 
 exports.main = {
     auth: false,
@@ -28,6 +29,23 @@ exports.login = {
 
 exports.authenticate = {
     auth: false,
+    validate: {
+        payload: {
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+        },
+
+        failAction: function (request, reply, source, error) {
+            reply.view('login', {
+                title: 'Login error',
+                errors: error.data.details,
+            }).code(400);
+        },
+
+        options: {
+            abortEarly: false,
+        }
+    },
     handler: function (request, reply) {
         const user = request.payload;
         User.findOne({email: user.email}).then(foundUser => {
@@ -57,6 +75,25 @@ exports.logout = {
 
 exports.register = {
     auth: false,
+    validate: {
+        payload: {
+            firstName: Joi.string().required(),
+            lastName: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+        },
+
+        failAction: function (request, reply, source, error) {
+            reply.view('signup', {
+                title: 'Sign up error',
+                errors: error.data.details,
+            }).code(400);
+        },
+
+        options: {
+            abortEarly: false,
+        }
+    },
     handler: function (request, reply) {
         const user = new User(request.payload);
 
@@ -82,6 +119,25 @@ exports.viewSettings = {
 };
 
 exports.updateSettings = {
+    validate: {
+        payload: {
+            firstName: Joi.string().required(),
+            lastName: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+        },
+
+        failAction: function (request, reply, source, error) {
+            reply.view('settings', {
+                title: 'Settings error',
+                errors: error.data.details,
+            }).code(400);
+        },
+
+        options: {
+            abortEarly: false,
+        }
+    },
     handler: function (request, reply) {
         const modifiedUser = request.payload;
         const userEmail = request.auth.credentials.loggedInUser;
