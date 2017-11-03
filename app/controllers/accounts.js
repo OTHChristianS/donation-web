@@ -73,10 +73,10 @@ exports.register = {
 exports.viewSettings = {
     handler: function (request, reply) {
         const userEmail = request.auth.credentials.loggedInUser;
-        const currentUser = this.users[userEmail];
-        reply.view('settings', {
-            title: 'Edit Account Settings',
-            user: currentUser
+        User.findOne({email: userEmail}).then(foundUser => {
+            reply.view('settings', {title: 'Edit Account Settings', user: foundUser});
+        }).catch(err => {
+            reply.redirect('/');
         });
     }
 };
@@ -85,14 +85,26 @@ exports.updateSettings = {
     handler: function (request, reply) {
         const modifiedUser = request.payload;
         const userEmail = request.auth.credentials.loggedInUser;
-        delete this.users[userEmail];
-        this.users[modifiedUser.email] = modifiedUser;
-        console.log(this.users);
-        request.cookieAuth.clear();
-        request.cookieAuth.set({
-            loggedIn: true,
-            loggedInUser: modifiedUser.email,
+
+        User.findOne({email: userEmail}).remove();
+
+        User.update({email: userEmail}, {
+            email: modifiedUser.email,
+            firstName: modifiedUser.firstName,
+            lastName: modifiedUser.lastName,
+            password: modifiedUser.password
+        }, function (err, numberAffected, rawResponse) {
+            if (err) {
+                console.log(err);
+                reply.redirect('/');
+            } else {
+                request.cookieAuth.clear();
+                request.cookieAuth.set({
+                    loggedIn: true,
+                    loggedInUser: modifiedUser.email,
+                });
+                reply.redirect('/settings');
+            }
         });
-        reply.redirect('/settings');
     }
 };
