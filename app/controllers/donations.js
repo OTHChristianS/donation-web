@@ -20,7 +20,6 @@ exports.report = {
                 donations: allDonations,
             });
         }).catch(err => {
-            console.log(err);
             reply.redirect('/');
         });
     },

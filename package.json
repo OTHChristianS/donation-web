@@ -13,6 +13,7 @@
     "hapi": "^14.2.0",
     "hapi-auth-cookie": "^6.1.1",
     "inert": "^4.0.1",
+    "joi": "^13.0.1",
     "mongoose": "^4.5.8",
     "vision": "^4.1.0"
   }
