@@ -17,9 +17,7 @@ exports.find = {
 };
 
 exports.findOne = {
-
     auth: false,
-
     handler: function (request, reply) {
         Candidate.findOne({_id: request.params.id}).then(candidate => {
             reply(candidate);
@@ -27,13 +25,10 @@ exports.findOne = {
             reply(Boom.notFound('id not found'));
         });
     }
-
 };
 
 exports.create = {
-
     auth: false,
-
     handler: function (request, reply) {
         const candidate = new Candidate(request.payload);
         candidate.save().then(newCandidate => {
@@ -41,34 +36,27 @@ exports.create = {
         }).catch(err => {
             reply(Boom.badImplementation('error creating candidate'));
         });
-    },
-
+    }
 };
 
 exports.deleteAll = {
-
     auth: false,
-
     handler: function (request, reply) {
         Candidate.remove({}).then(err => {
             reply().code(204);
         }).catch(err => {
             reply(Boom.badImplementation('error removing candidates'));
         });
-    },
-
+    }
 };
 
 exports.deleteOne = {
-
     auth: false,
-
     handler: function (request, reply) {
         Candidate.remove({_id: request.params.id}).then(candidate => {
             reply(candidate).code(204);
         }).catch(err => {
             reply(Boom.notFound('id not found'));
         });
-    },
-
+    }
 };

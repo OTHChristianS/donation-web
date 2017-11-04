@@ -19,8 +19,8 @@ suite('Candidate API tests', function () {
         assert.equal(candidates[1].lastName, 'Simpson');
         assert.equal(candidates[1].office, 'President');
     });
-    test('get one candidate', function () {
 
+    test('get one candidate', function () {
         const allCandidatesUrl = 'http://localhost:4000/api/candidates';
         var res = request('GET', allCandidatesUrl);
         const candidates = JSON.parse(res.getBody('utf8'));
@@ -31,10 +31,9 @@ suite('Candidate API tests', function () {
         assert.equal(oneCandidate.firstName, candidates[0].firstName);
         assert.equal(oneCandidate.lastName, candidates[0].lastName);
         assert.equal(oneCandidate.office, candidates[0].office);
-
     });
-    test('create a candidate', function () {
 
+    test('create a candidate', function () {
         const candidatesUrl = 'http://localhost:4000/api/candidates';
         const newCandidate = {
             firstName: 'Barnie',
@@ -48,6 +47,23 @@ suite('Candidate API tests', function () {
         assert.equal(returnedCandidate.firstName, 'Barnie');
         assert.equal(returnedCandidate.lastName, 'Grumble');
         assert.equal(returnedCandidate.office, 'President');
+    });
 
+    test('delete one candidate', function () {
+        const allCandidatesUrl = 'http://localhost:4000/api/candidates';
+        var res = request('GET', allCandidatesUrl);
+        const candidates = JSON.parse(res.getBody('utf8'));
+        const oneCandidateUrl = allCandidatesUrl + '/' + candidates[0]._id;
+        res = request('DELETE', oneCandidateUrl);
+
+        assert.equal(res.statusCode, 204);
+    });
+
+
+    test('delete all candidates', function () {
+        const candidatesUrl = 'http://localhost:4000/api/candidates';
+        const res = request('DELETE', candidatesUrl);
+
+        assert.equal(res.statusCode, 204);
     });
 });
