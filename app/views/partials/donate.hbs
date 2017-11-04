@@ -3,17 +3,12 @@
         <div class="ui form six wide column">
             <div class="ui stacked segment">
                 <form action="/donate" method="POST">
-                    <div class="ui dropdown">
-                        <input type="hidden" name="amount">
-                        <div class="text">Select Amount</div>
-                        <i class="ui dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item">50</div>
-                            <div class="item">100</div>
-                            <div class="item">1000</div>
-                        </div>
+                    <div class="ui grouped fields">
+                        <h3>Enter Amount</h3>
+                        <input type="number" name="amount">
                     </div>
                     <div class="grouped inline fields">
+                        <h3>Select Method</h3>
                         <div class="field">
                             <div class="ui radio checkbox">
                                 <input type="radio" name="method" value="paypal">
