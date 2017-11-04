@@ -12,11 +12,12 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
-    if (process.env.NODE_ENV != 'production') {
+    if (process.env.NODE_ENV !== 'production') {
         var seeder = require('mongoose-seeder');
-        const data = require('./data.json');
         const Donation = require('./donation');
+        const data = require('./data.json');
         const User = require('./user');
+        const Candidate = require('./candidate.js');
         seeder.seed(data, {dropDatabase: false, dropCollections: true}).then(dbData => {
             console.log('preloading Test Data');
             console.log(dbData);

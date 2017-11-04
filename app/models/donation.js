@@ -5,8 +5,12 @@ const donationSchema = mongoose.Schema({
     method: String,
     donor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'User'
     },
+    candidate: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Candidate'
+    }
 });
 
 const Donation = mongoose.model('Donation', donationSchema);
