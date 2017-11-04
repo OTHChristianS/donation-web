@@ -24,7 +24,16 @@ exports.report = {
         Donation.find({}).populate('donor').populate('candidate').then(allDonations => {
             reply.view('report', {
                 title: 'Donations to Date',
-                donations: allDonations
+                donations: allDonations,
+                totalDonationsAmount: function () {
+                    let totalDonations = 0;
+
+                    for (let i = 0; i < allDonations.length; i++) {
+                        totalDonations += allDonations[i].amount;
+                    }
+
+                    return totalDonations;
+                }
             });
         }).catch(err => {
             reply.redirect('/');
