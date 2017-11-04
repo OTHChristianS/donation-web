@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-let dbURI = 'mongodb://donation:donation@ds145275.mlab.com:45275/donation-web';
-//let dbURI = 'mongodb://node:nodeJS@192.168.56.101:27017/donation?authSource=admin';
+let dbURI = 'mongodb://node:nodeJS@192.168.56.101:27017/donation?authSource=admin';
+
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
@@ -12,6 +12,18 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
+    if (process.env.NODE_ENV != 'production') {
+        var seeder = require('mongoose-seeder');
+        const data = require('./data.json');
+        const Donation = require('./donation');
+        const User = require('./user');
+        seeder.seed(data, {dropDatabase: false, dropCollections: true}).then(dbData => {
+            console.log('preloading Test Data');
+            console.log(dbData);
+        }).catch(err => {
+            console.log(error);
+        });
+    }
 });
 
 mongoose.connection.on('error', function (err) {
